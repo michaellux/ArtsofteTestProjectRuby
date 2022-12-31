@@ -1,4 +1,4 @@
 class ListEmployeeController < ApplicationController
-  def index
+  def add
   end
 end

@@ -1,1 +1,41 @@
 
+<div class="text-center">
+    <h1 class="display-4 .main__list">A list of employees</h1>
+    <div class="mb-3">
+         <%= link_to "Add", add_path, role: "button", class: "btn btn-success" %>
+         <%= link_to "Add department", department_path, role: "button", class: "btn btn-success" %>
+         <%= link_to "Add language", language_path, role: "button", class: "btn btn-success" %>
+    </div>
+    <%
+=begin%>
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Department</th>
+                <th>Language</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employeePlace in Model.EmployeePlaces)
+            {
+                <tr id="@employeePlace.Id">
+                    <td>@employeePlace.Employee.Name</td>
+                    <td>@employeePlace.Employee.Surname</td>
+                    <td>@employeePlace.Employee.Age</td>
+                    <td>@employeePlace.Department.Name</td>
+                    <td>@employeePlace.ProgrammingLanguage.Name</td>
+                    <td>
+                        <a href="/edit?id=@employeePlace.Id" class="btn btn-info" role="button">Change</a>
+                        <input name="@employeePlace.Id" onclick="DeleteEmployeePlace(this)" type="button" class="btn btn-danger delete" value="Delete" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table> 
+<%
+=end%>
+</div>
