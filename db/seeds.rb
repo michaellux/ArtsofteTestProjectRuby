@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require "securerandom"
+
+employee_id = SecureRandom.uuid
+department_id = SecureRandom.uuid
+programming_language_id = SecureRandom.uuid
+employee_place_id = SecureRandom.uuid
+
+Department.create(id: department_id, name: "First", floor: 1)
+ProgrammingLanguage.create(id: programming_language_id, name: "Fortran")
+

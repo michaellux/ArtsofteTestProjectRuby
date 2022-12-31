@@ -23,7 +23,7 @@ default: &default
 
 development:
   adapter: postgresql
-  database: artsofttestproject
+  database: artsofte_testproject_ruby
   username: michaellux
   password: Alexsemen1992
   encoding: unicode
@@ -32,7 +32,7 @@ development:
 
 test:
   adapter: postgresql
-  database: artsofttestproject
+  database: artsofte_testproject_ruby
   username: michaellux
   password: Alexsemen1992
   encoding: unicode
