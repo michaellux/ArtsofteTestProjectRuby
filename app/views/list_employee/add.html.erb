@@ -4,7 +4,7 @@
  <div class="container">
         <div class="row">
             <div class="col-10">
-               <%= form_with model: @employee do |form| %>
+               <%= form_with url: add_employee_path, model: @employee do |form| %>
                     <div class="row mb-3">
                         <%= form.label :name, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
@@ -20,7 +20,7 @@
                      <div class="row mb-3">
                         <%= form.label :age, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
-                            <%= form.text_field :age, class: "form-control" %>
+                            <%= form.number_field :age, class: "form-control" %>
                         </div>
                     </div>
                      <div class="row mb-3">
@@ -40,6 +40,10 @@
                         <div class="col-sm-6">
                             <%= form.collection_select :programming_language, ProgrammingLanguage.all, :id, :name, {include_blank: 'Choose a language'}, {class: 'form-select'} %>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <%= form.submit "Add", class: "btn btn-success" %>
+                        <%= link_to "Cancel", root_path, role: "button", class: "btn btn-danger" %>
                     </div>
                 <% end %>
             </div>

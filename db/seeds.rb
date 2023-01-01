@@ -8,6 +8,7 @@
 require "securerandom"
 
 employee_id = SecureRandom.uuid
+puts employee_id
 department_id = SecureRandom.uuid
 programming_language_id = SecureRandom.uuid
 employee_place_id = SecureRandom.uuid

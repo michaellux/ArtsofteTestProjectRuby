@@ -16,16 +16,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_31_115457) do
   enable_extension "plpgsql"
 
   create_table "departments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
-    t.integer "floor"
+    t.text "name", null: false
+    t.integer "floor", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "employee_places", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "employee_id"
-    t.uuid "department_id"
-    t.uuid "programming_language_id"
+  create_table "employee_places", force: :cascade do |t|
+    t.uuid "uuid"
+    t.uuid "employee_id", null: false
+    t.uuid "department_id", null: false
+    t.uuid "programming_language_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_employee_places_on_department_id"
@@ -34,18 +35,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_31_115457) do
   end
 
   create_table "employees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
-    t.text "surname"
-    t.integer "age"
-    t.text "gender"
+    t.text "name", null: false
+    t.text "surname", null: false
+    t.integer "age", null: false
+    t.text "gender", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "programming_languages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
+    t.text "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "employee_places", "departments"
+  add_foreign_key "employee_places", "employees"
+  add_foreign_key "employee_places", "programming_languages"
 end
