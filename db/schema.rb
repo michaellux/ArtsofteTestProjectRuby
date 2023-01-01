@@ -14,38 +14,39 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_31_115457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "departments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
-    t.integer "floor"
+  create_table "departments", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
+    t.integer "floor", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "employee_places", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "employee_places", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "employee_id"
     t.uuid "department_id"
     t.uuid "programming_language_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["department_id"], name: "index_employee_places_on_department_id"
-    t.index ["employee_id"], name: "index_employee_places_on_employee_id"
-    t.index ["programming_language_id"], name: "index_employee_places_on_programming_language_id"
   end
 
-  create_table "employees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
-    t.text "surname"
-    t.integer "age"
-    t.text "gender"
+  create_table "employees", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
+    t.text "surname", null: false
+    t.integer "age", null: false
+    t.text "gender", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "programming_languages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "name"
+  create_table "programming_languages", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "employee_places", "departments", primary_key: "uuid"
+  add_foreign_key "employee_places", "employees", primary_key: "uuid"
+  add_foreign_key "employee_places", "programming_languages", primary_key: "uuid"
 end
