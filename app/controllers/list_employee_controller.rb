@@ -3,22 +3,34 @@ require "securerandom"
 class ListEmployeeController < ApplicationController
   def add
     @employee = Employee.new
-    @employee_places = EmployeePlace.new
+    @employee_place = EmployeePlace.new
   end
 
   def create
     employee_params_modified = employee_params;
     employee_params_modified[:uuid] = SecureRandom.uuid
     @employee = Employee.create(employee_params_modified)
-    
-    employee_places_converted_params = Hash.new
-    employee_places_converted_params[:uuid] = SecureRandom.uuid
-    employee_places_converted_params[:employee_id] = employee_params_modified[:uuid]
-    employee_places_converted_params[:department_id] = Digest::UUID.uuid_v5(employee_places_params[:department], "department_id")
-    employee_places_converted_params[:programming_language_id] = Digest::UUID.uuid_v5(employee_places_params[:programming_language], "programming_language_id")
-    puts "-------------employee_place"
-    puts employee_places_converted_params
-    @employee_place = EmployeePlace.create(employee_places_converted_params)
+
+    @employee_place = EmployeePlace.transaction do
+      begin
+        employee_places_converted_params = Hash.new
+        employee_places_converted_params[:uuid] = SecureRandom.uuid
+        employee_places_converted_params[:employee_id] = employee_params_modified[:uuid]
+        employee_places_converted_params[:department_id] = employee_places_params[:department]
+        employee_places_converted_params[:programming_language_id] = employee_places_params[:programming_language]
+        EmployeePlace.create(
+          uuid: employee_places_converted_params[:uuid],
+              employee_id: employee_places_converted_params[:employee_id],
+              department_id: employee_places_converted_params[:department_id],
+              programming_language_id: employee_places_converted_params[:programming_language_id],
+        )
+
+      rescue StandardError => e
+        Rails.logger.info("Transaction failed with a message #{e.message}")
+        raise ActiveRecord::Rollback, e.message
+      end
+
+    end
 
     if @employee.save && @employee_place.save
       redirect_to root_path
