@@ -1,0 +1,51 @@
+<div class="text-center">
+    <h1 class="display-4 main__add">Change an employee</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <%= form_with url: edit_employee_path, model: @employee_place_employee do |form| %>
+                    <div class="row mb-3">
+                        <%= form.label :name, class: "col-form-label col-sm-6" %>
+                        <div class="col-sm-6">
+                            <%= form.text_field :name, class: "form-control" %>
+                        </div>
+                    </div>
+                     <div class="row mb-3">
+                        <%= form.label :surname, class: "col-form-label col-sm-6" %>
+                        <div class="col-sm-6">
+                            <%= form.text_field :surname, class: "form-control" %>
+                        </div>
+                    </div>
+                     <div class="row mb-3">
+                        <%= form.label :age, class: "col-form-label col-sm-6" %>
+                        <div class="col-sm-6">
+                            <%= form.number_field :age, class: "form-control" %>
+                        </div>
+                    </div>
+                     <div class="row mb-3">
+                        <%= form.label :gender, class: "col-form-label col-sm-6" %>
+                        <div class="col-sm-6">
+                            <%= form.text_field :gender, class: "form-control" %>
+                        </div>
+                    </div>
+                        <div class="row mb-3">
+                            <%= form.label :department, class: "col-form-label col-sm-6" %>
+                            <div class="col-sm-6">
+                                <%= form.collection_select :department, Department.all, :id, :name, {include_blank: 'Choose a department'}, {class: 'form-select'} %>
+                            </div>
+                        </div>
+                    <div class="row mb-3">
+                        <%= form.label :programming_language, class: "col-form-label col-sm-6" %>
+                        <div class="col-sm-6">
+                            <%= form.collection_select :programming_language, ProgrammingLanguage.all, :id, :name, {include_blank: 'Choose a language'}, {class: 'form-select'} %>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <%= form.submit "Add", class: "btn btn-success" %>
+                        <%= link_to "Cancel", root_path, role: "button", class: "btn btn-danger" %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

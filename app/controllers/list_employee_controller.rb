@@ -1,6 +1,10 @@
 require "active_support/core_ext/digest/uuid"
 require "securerandom"
 class ListEmployeeController < ApplicationController
+  def index
+    @employee_places = EmployeePlace.joins(:employee, :department, :programming_language)
+  end
+
   def add
     @employee = Employee.new
     @employee_place = EmployeePlace.new
@@ -48,4 +52,18 @@ class ListEmployeeController < ApplicationController
       :department, :programming_language
     )
   end
+
+  def edit
+    @employee_place_employee = index.find_by_uuid(params[:id]).employee
+    @employee_place_department = index.find_by_uuid(params[:id]).department
+    @employee_place_programming_language = index.find_by_uuid(params[:id]).programming_language
+    puts @employee_place.inspect
+  end
+
+  def EmployeePlace
+    def to_param
+      uuid
+    end
+  end
+
 end

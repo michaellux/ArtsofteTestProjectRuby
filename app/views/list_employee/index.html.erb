@@ -6,8 +6,7 @@
          <%= link_to "Add department", department_path, role: "button", class: "btn btn-success" %>
          <%= link_to "Add language", language_path, role: "button", class: "btn btn-success" %>
     </div>
-    <%
-=begin%>
+
  <table class="table table-striped">
         <thead>
             <tr>
@@ -20,22 +19,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var employeePlace in Model.EmployeePlaces)
-            {
-                <tr id="@employeePlace.Id">
-                    <td>@employeePlace.Employee.Name</td>
-                    <td>@employeePlace.Employee.Surname</td>
-                    <td>@employeePlace.Employee.Age</td>
-                    <td>@employeePlace.Department.Name</td>
-                    <td>@employeePlace.ProgrammingLanguage.Name</td>
+            <% @employee_places.find_each do |employee_place| %> 
+                <tr id="" >
+                    <td><%= employee_place.employee.name %> </td>
+                    <td><%= employee_place.employee.surname %></td>
+                    <td><%= employee_place.employee.age %></td>
+                    <td><%= employee_place.department.name %></td>
+                    <td><%= employee_place.programming_language.name %></td>
                     <td>
-                        <a href="/edit?id=@employeePlace.Id" class="btn btn-info" role="button">Change</a>
+                        <%= link_to "Change", edit_employee_path(:id => employee_place.id), role: "button", class: "btn btn-info" %>
                         <input name="@employeePlace.Id" onclick="DeleteEmployeePlace(this)" type="button" class="btn btn-danger delete" value="Delete" />
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table> 
-<%
-=end%>
+            <% end %>
+        <tbody>
+    </table>
 </div>
