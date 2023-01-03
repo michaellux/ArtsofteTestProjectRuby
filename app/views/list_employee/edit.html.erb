@@ -3,7 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-10">
-                <%= form_with url: edit_employee_path, model: @employee_place_employee do |form| %>
+                <%= form_with url: edit_path, model: @employee_place_employee, method: :patch do |form| %>
+                    <%= fields_for @employee_place do |ep| %>
+                         <%= ep.hidden_field :id, class: "form-control" %>
+                    <% end %> 
+                    <%= form.hidden_field :id, class: "form-control" %>
                     <div class="row mb-3">
                         <%= form.label :name, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
@@ -28,18 +32,22 @@
                             <%= form.text_field :gender, class: "form-control" %>
                         </div>
                     </div>
+                    <%= fields_for @employee_place_department do |d| %>
+                            <div class="row mb-3">
+                                <%= d.label :department, class: "col-form-label col-sm-6" %>
+                                <div class="col-sm-6">
+                                    <%= d.collection_select :id, Department.all, :id, :name, {include_blank: 'Choose a department'}, {class: 'form-select'} %>
+                                </div>
+                            </div>
+                    <% end %> 
+                    <%= fields_for @employee_place_programming_language do |pl| %>
                         <div class="row mb-3">
-                            <%= form.label :department, class: "col-form-label col-sm-6" %>
+                            <%= pl.label :programming_language, class: "col-form-label col-sm-6" %>
                             <div class="col-sm-6">
-                                <%= form.collection_select :department, Department.all, :id, :name, {include_blank: 'Choose a department'}, {class: 'form-select'} %>
+                                <%= pl.collection_select :id, ProgrammingLanguage.all, :id, :name, {include_blank: 'Choose a language'}, {class: 'form-select'} %>
                             </div>
                         </div>
-                    <div class="row mb-3">
-                        <%= form.label :programming_language, class: "col-form-label col-sm-6" %>
-                        <div class="col-sm-6">
-                            <%= form.collection_select :programming_language, ProgrammingLanguage.all, :id, :name, {include_blank: 'Choose a language'}, {class: 'form-select'} %>
-                        </div>
-                    </div>
+                    <% end %> 
                     <div class="mb-3">
                         <%= form.submit "Add", class: "btn btn-success" %>
                         <%= link_to "Cancel", root_path, role: "button", class: "btn btn-danger" %>

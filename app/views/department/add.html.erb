@@ -2,31 +2,26 @@
     <h1 class="display-4 main__add">Adding an department</h1>
     <div class="container">
         <div class="row">
-            <%
-=begin%>
- <div class="col-10">
-                @using (Html.BeginForm())
-                {
+            <div class="col-10">
+                 <%= form_with url: department_path, model: @department do |form| %>
                     <div class="row mb-3">
-                        @Html.LabelFor(m => m.Department.Name, new { @class= "col-form-label, col-sm-6" })
+                        <%= form.label :name, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="Department.Name" />
+                            <%= form.text_field :name, class: "form-control" %>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        @Html.LabelFor(m => m.Department.Floor, new { @class= "col-form-label, col-sm-6" })
+                     <div class="row mb-3">
+                        <%= form.label :floor, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
-                            @Html.TextBoxFor(m => m.Department.Floor, new { @class= "form-control", type="number" })
+                            <%= form.number_field :floor, class: "form-control" %>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="submit" value="Add" class="btn btn-success" />
-                        <a href="/" class="btn btn-danger" role="button">Cancel</a>
+                        <%= form.submit "Add", class: "btn btn-success" %>
+                        <%= link_to "Cancel", root_path, role: "button", class: "btn btn-danger" %>
                     </div>
-                }
+                <% end %>
             </div> 
-<%
-=end%>
         </div>
     </div>
 </div>

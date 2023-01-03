@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   get "add", to: "list_employee#add", as: :add
-  get "edit_employee", to: "list_employee#edit"
-  post "add_employee", to: "list_employee#create"
+  get "edit", to: "list_employee#edit"
+  post "add", to: "list_employee#create"
+  patch "edit", to: "list_employee#update"
 
   get "department", to: "department#add"
+  post "department", to: "department#create"
   get "language", to: "programming_language#add"
+  post "language", to: "programming_language#create"
   
   root to: "list_employee#index"
 end

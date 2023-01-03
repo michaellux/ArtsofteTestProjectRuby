@@ -41,9 +41,24 @@ class ListEmployeeController < ApplicationController
     end
   end
 
+  def update
+    @employee = Employee.find_by(uuid: params[:employee][:id])
+    @employee.update(employee_params);
+    @employee_place = EmployeePlace.find_by_uuid(params[:employee_place][:id])
+    @employee_place.update(
+      department_id: params[:department][:id],
+      programming_language_id: params[:programming_language][:id]
+    );
+
+
+    if @employee.save && @employee_place.save
+      redirect_to root_path
+    end
+  end
+
   def employee_params
     params.require(:employee).permit(
-      :name, :surname, :age, :gender
+      :name, :surname, :age, :gender, :department
     )
   end
 
@@ -54,6 +69,7 @@ class ListEmployeeController < ApplicationController
   end
 
   def edit
+    @employee_place = index.find_by_uuid(params[:id])
     @employee_place_employee = index.find_by_uuid(params[:id]).employee
     @employee_place_department = index.find_by_uuid(params[:id]).department
     @employee_place_programming_language = index.find_by_uuid(params[:id]).programming_language
