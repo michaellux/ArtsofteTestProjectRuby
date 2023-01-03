@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             <% @employee_places.find_each do |employee_place| %> 
-                <tr id="" >
+                <tr id=<%= employee_place.id %> >
                     <td><%= employee_place.employee.name %> </td>
                     <td><%= employee_place.employee.surname %></td>
                     <td><%= employee_place.employee.age %></td>
@@ -28,7 +28,7 @@
                     <td><%= employee_place.programming_language.name %></td>
                     <td>
                         <%= link_to "Change", edit_path(:id => employee_place.id), role: "button", class: "btn btn-info" %>
-                        <input name="@employeePlace.Id" onclick="DeleteEmployeePlace(this)" type="button" class="btn btn-danger delete" value="Delete" />
+                        <input name=<%= employee_place.id %> onclick="DeleteEmployeePlace(this)" type="button" class="btn btn-danger delete" value="Delete" />
                     </td>
                 </tr>
             <% end %>

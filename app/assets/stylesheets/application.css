@@ -1,3 +1,5 @@
+*= require jquery-ui
+
 .main__list, .main__add {
     margin-bottom: 1rem;
 }
