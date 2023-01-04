@@ -81,7 +81,11 @@ class ListEmployeeController < ApplicationController
   end
 
   def delete
-    EmployeePlace.find_by_uuid(params[:id]).destroy
+    # regular
+    # EmployeePlace.find_by_uuid(params[:id]).destroy
+
+    #by stored procedure
+    ActiveRecord::Base.connection.execute("call delete_employee_place('#{params[:id]}')")
   end
 
   def EmployeePlace
