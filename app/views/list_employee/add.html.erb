@@ -49,5 +49,12 @@
             </div>
         </div>
     </div> 
-
 </div>
+
+<script>
+window.onload = function() {
+  $("#name-autocomplete").autocomplete({
+    source: "/names",
+  })
+}
+</script>

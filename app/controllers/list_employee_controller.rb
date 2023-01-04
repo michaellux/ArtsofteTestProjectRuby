@@ -10,6 +10,11 @@ class ListEmployeeController < ApplicationController
     @employee_place = EmployeePlace.new
   end
 
+  def names
+      @names= Employee.search(params[:term])
+      render json: @names.map(&:name).uniq 
+  end
+
   def create
     employee_params_modified = employee_params;
     employee_params_modified[:uuid] = SecureRandom.uuid
@@ -33,7 +38,6 @@ class ListEmployeeController < ApplicationController
         Rails.logger.info("Transaction failed with a message #{e.message}")
         raise ActiveRecord::Rollback, e.message
       end
-
     end
 
     if @employee.save && @employee_place.save
@@ -58,7 +62,7 @@ class ListEmployeeController < ApplicationController
 
   def employee_params
     params.require(:employee).permit(
-      :name, :surname, :age, :gender, :department
+      :name, :surname, :age, :gender
     )
   end
 
@@ -74,6 +78,10 @@ class ListEmployeeController < ApplicationController
     @employee_place_department = index.find_by_uuid(params[:id]).department
     @employee_place_programming_language = index.find_by_uuid(params[:id]).programming_language
     puts @employee_place.inspect
+  end
+
+  def delete
+    EmployeePlace.find_by_uuid(params[:id]).destroy
   end
 
   def EmployeePlace
