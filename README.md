@@ -1,5 +1,7 @@
 # ArtsofteTestProject (Ruby version)
 
+## [Version on C#](https://github.com/michaellux/ArtsofteTestProject)
+
 ## Solution
 ![Скриншот программы](./Screenshot_1.png)
 ![Скриншот программы](./Screenshot_2.png)
