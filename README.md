@@ -15,6 +15,8 @@ rails db:migrate
 
 rails db:seed
 
+### Project launch
+
 rails server
 
 
