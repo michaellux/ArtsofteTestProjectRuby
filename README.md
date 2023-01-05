@@ -1,24 +1,20 @@
-# README
+# ArtsofteTestProject (Ruby version)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Solution
+![Скриншот программы](./Screenshot_1.png)
+![Скриншот программы](./Screenshot_2.png)
+![Скриншот программы](./Screenshot_3.png)
+![Скриншот программы](./Screenshot_4.png)
+![Скриншот программы](./Screenshot_5.png)
 
-Things you may want to cover:
+### Project setup
 
-* Ruby version
+rails db:create
 
-* System dependencies
+rails db:migrate
 
-* Configuration
+rails db:seed
 
-* Database creation
+rails server
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
