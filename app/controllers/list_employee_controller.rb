@@ -8,6 +8,9 @@ class ListEmployeeController < ApplicationController
   def add
     @employee = Employee.new
     @employee_place = EmployeePlace.new
+
+    query = "select * from get_all_departments()"
+    @all_departments = ActiveRecord::Base.connection.exec_query(query).to_a
   end
 
   def names

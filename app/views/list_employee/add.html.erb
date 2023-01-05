@@ -32,7 +32,15 @@
                      <div class="row mb-3">
                         <%= form.label :department, class: "col-form-label col-sm-6" %>
                         <div class="col-sm-6">
-                            <%= form.collection_select :department, Department.all, :id, :name, {include_blank: 'Choose a department'}, {class: 'form-select'} %>
+                            <%
+=begin%>
+ <%= form.collection_select :department, Department.all, :id, :name, {include_blank: 'Choose a department'}, {class: 'form-select'} %> 
+<%
+=end%>
+                            <%= select_tag "employee[department]", 
+                            options_for_select(@all_departments.collect {|p| [ p['name'], p['uuid'] ] }),
+                            class: 'form-select', prompt: 'Choose a department'
+                            %>
                         </div>
                     </div>
                     <div class="row mb-3">
